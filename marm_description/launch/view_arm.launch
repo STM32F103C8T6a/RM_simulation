@@ -1,0 +1,20 @@
+<launch>
+    <arg name="model" />
+    <!-- 加载机器人模型参数 -->
+    <param name="robot_description" command="$(find xacro)/xacro  $(find marm_description)/urdf/arm.xacro" />
+
+    <!-- 运行joint_state_publisher节点，发布机器人的关节状态  -->
+    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" output="screen" />
+
+    <!-- 设置GUI参数，显示关节控制插件 -->
+    <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" output="screen" />
+    
+    <!-- 运行robot_state_publisher节点，发布tf  -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
+
+    <!-- 运行rviz可视化界面 -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find marm_description)/rviz/arm.rviz" required="true" />
+</launch>
+
+
+
